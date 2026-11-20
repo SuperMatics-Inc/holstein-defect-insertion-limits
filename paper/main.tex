@@ -1,0 +1,210 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[hidelinks,pdfusetitle]{hyperref}
+\usepackage{microtype}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\DeclareMathOperator{\Tr}{Tr}
+\newcommand*{\LIMITSPAPERDOI}{10.5281/zenodo.24385569}
+\newcommand*{\LIMITSSUPPDOI}{10.5281/zenodo.24385573}
+\newcommand*{\LIMITSREPO}{https://github.com/SuperMatics-Inc/holstein-defect-insertion-limits}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\free}{\mathrm{free}}
+\newcommand{\full}{\mathrm{full}}
+\title{Limits of defect-insertion bounds for slow-phonon pair order in the Holstein model}
+\author{Davis Rens\\SuperMatics Inc.\\\href{https://orcid.org/0000-0001-5839-5197}{ORCID 0000-0001-5839-5197}}
+\date{\smash{\parbox{.98\linewidth}{\centering\scriptsize
+Article DOI: \href{https://doi.org/10.5281/zenodo.24385569}{\LIMITSPAPERDOI}\quad Supplement DOI: \href{https://doi.org/10.5281/zenodo.24385573}{\LIMITSSUPPDOI}\\
+Source repository: \expandafter\url\expandafter{\LIMITSREPO}
+}}}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We examine what annealed defect-insertion estimates can establish about pair order in the slow-phonon Holstein model. For the spinful square-lattice model, a centered Gaussian supremum weight yields a uniform bound of size $\exp(-\lambda |B|/48)$ for restricted thermal traces with bounded electronic insertions, provided $g\le U/4$, $t\le g/64$, $\lambda=\beta U\ge64$, $a=\beta\Omega>0$, $a^2\le1/252$, and the defect and weight supports obey $|B\cup B'|\le7|B|$. The proof combines a static Gaussian barrier, a centered free-history moment, and a partial trace with an explicit hopping cut. We also show why a positive uncentered supremum envelope cannot have a prefactor-free purely quadratic cost, why the insertion estimate does not provide a polymer activity or clustering, and why the admissible temperature interval gives no pair-temperature bound. These results establish a useful local insertion theorem but do not yield a linear-in-$\Omega$ ceiling. That ceiling remains conjectural.
+\end{abstract}
+
+\section{Purpose and context}
+
+The spinful Holstein model couples itinerant electrons to local harmonic oscillators. Its pairing question is subtle in the adiabatic regime, where the phonon frequency is small compared with electronic and thermal scales. Earlier work established a two-thirds-power adiabatic bound in \textit{A two-thirds-power adiabatic bound for electronic pair order}~\cite{linear4}, developed imaginary-time estimates and method barriers in \textit{Imaginary-time estimates and method barriers beyond the two-thirds adiabatic bound}~\cite{linear5}, and proved frequency-uniform strong-coupling results in \textit{Strong-coupling suppression of electronic pair order in the Holstein model, uniformly in phonon frequency and without a hopping cutoff}~\cite{stage6}. The related \textit{Pair correlations in the Hubbard-Holstein model at strong coupling, uniform in the phonon frequency} gives further context for strong-coupling correlation estimates~\cite{hubhol}. Method-specific barriers involving determinant zeros are collected in \textit{Determinant zeros and method-specific barriers to linear-in-frequency pairing bounds in the Holstein model}~\cite{barriers}. The underlying local oscillator coupling is the standard Holstein one~\cite{holstein}.
+
+Here we isolate a narrower question. Can a rare static defect event, with a Gaussian envelope of dynamic oscillator histories inserted nearby, be controlled strongly enough to supply a connected polymer expansion? The answer established here is limited. We prove a uniform annealed estimate for a centered local envelope and bounded electronic insertions. We then identify the missing implications between that estimate and spatial clustering. In particular, the paper makes no claim that the Holstein state fails to cluster, and the calculations below do not refute a physical linear pairing ceiling.
+
+\section{Model, path variables, and the insertion observable}
+
+Let $U>0$ and $\Omega>0$ be the coupling and phonon-frequency parameters. Let $\Lambda$ be a finite periodic square lattice of side length at least two, with no self-loops and weighted degree at most four. There are two electron spin species, nearest-neighbor hopping $-t$, onsite field $b_x(u)$, and chemical potential $\mu$. The total local number operator is $n_x:=\sum_{\sigma\in\{\uparrow,\downarrow\}}c^\dagger_{x\sigma}c_{x\sigma}$. The electronic generator at fixed oscillator paths is
+\[
+ H_e(u)=-t\sum_{\langle xy\rangle,\sigma}
+ (c^\dagger_{x\sigma}c_{y\sigma}+c^\dagger_{y\sigma}c_{x\sigma})
+ +\sum_{x\in\Lambda}(b_x(u)-\mu)n_x.
+\]
+We write $b_x(u)=b_{0,x}+v_x(u)$. Under the normalized free oscillator path law, the static coordinates are independent with
+\[
+ b_{0,x}\sim N(0,U/\beta),
+\]
+and the dynamic histories $v_x$ are independent centered stationary Gaussian processes, independent of the static coordinates and with zero time average. The full annealed path law has density proportional to the exact two-spin determinant squared, equivalently the electronic thermal trace, relative to this free law. No truncation of the oscillator Hilbert space is used.
+
+Set $\tau=k_BT$, $\beta=1/\tau$, $\lambda=\beta U$, $a=\beta\Omega$, and $q=g/U$. For a deterministic finite set $B\subset\Lambda$, define the static defect event
+\[
+ E_B=\{|b_{0,x}-\mu|<g\text{ for all }x\in B\}.
+\]
+Let $B'$ be another deterministic set and put $S=B\cup B'$. With expectation over one free dynamic history, define
+\[
+ m_v=\E_{\free}\|v_x\|_\infty,\qquad
+ W^c_{B'}=\exp\!\left(\beta\sum_{x\in B'}(\|v_x\|_\infty-m_v)\right).
+\]
+The centering $m_v$ depends on $(\beta,\Omega,U)$, not on $g$, $\mu$, hopping, or volume. For bounded electronic operators $O_1,\ldots,O_m$ at fixed ordered thermal times, write $K_O=\prod_j\|O_j\|_{\mathrm{op}}$, with $K_O=1$ when there are no insertions. Define $A_{B,B'}(O)$ as the full annealed thermal trace with the time-ordered product of the $O_j$, restricted by $1_{E_B}$ and multiplied by $W^c_{B'}$, divided by the full partition function without restrictions, weights, or insertions. Thus $A_{B,B'}(O)$ is a normalized restricted insertion functional, not a connected coefficient. With no operators it is the actual positive full-state expectation $\E_{\full}[1_{E_B}W^c_{B'}]$.
+
+\section{A centered annealed insertion theorem}
+
+\begin{theorem}[Uniform centered insertion bound]
+Assume $0<g\le U/4$, $0\le t\le g/64$, $\lambda\ge64$, $a>0$, and $a^2\le1/252$. If $B$ is nonempty and $|B\cup B'|\le7|B|$, then, uniformly in real $\mu$, finite volume, insertion times, and the deterministic sets,
+\[
+ |A_{B,B'}(O)|\le K_O\exp(-\lambda|B|/48).
+\]
+There is no nesting assumption on $B$ and $B'$. In particular, for $B'=\varnothing$ and no operators this bounds the joint probability of $E_B$ in the full annealed state; for general $B'$ and no operators it bounds the centered-envelope expectation on a possibly distinct support.
+\end{theorem}
+
+The cutoff on $a$ converts to the physical temperature window
+\[
+ 6\sqrt 7\,\Omega\le k_BT\le U/64.
+\]
+The centering cannot be silently removed. Since $W_{B'}=\exp(\beta\sum_{x\in B'}\|v_x\|_\infty)=\exp(\beta m_v|B'|)W^c_{B'}$, converting the theorem to the uncentered weight adds $\beta m_v|B'|$ to the exponent. In this range, $\beta m_v$ depends on $(\lambda,a)$ and has order $\sqrt{\lambda}a$ as $a$ tends to zero. Thus the centered theorem does not assert the same suppression for an uncentered envelope.
+
+\subsection{Proof and constant budget}
+
+The free dynamic variance at one time is
+\[
+ \sigma_v^2=\frac{U}{\beta}\left[\frac a2\coth\!\left(\frac a2\right)-1\right]
+ =\frac{2U}{\beta}\sum_{n\ge1}\frac{a^2}{(2\pi n)^2+a^2},
+ \qquad \alpha:=\beta^2\sigma_v^2\le\frac{\lambda a^2}{12}.
+\]
+The last inequality follows by replacing each denominator by $(2\pi n)^2$ and using $\sum_{n\ge1}n^{-2}=\pi^2/6$. For a finite set of times, the maximum of the sampled centered Gaussian process is $\sigma_v$-Lipschitz as a function of a standard Gaussian vector. Gaussian log-Sobolev concentration and Herbst integration therefore give
+\[
+ \E_{\free}\exp\{s\beta(\|v_x\|_\infty-m_v)\}\le \exp(s^2\alpha/2),\qquad s\ge0.
+\]
+A dyadic increment estimate gives all positive exponential moments of $\beta\|v_x\|_\infty$, allowing the finite-grid inequality to pass to the continuous history by increasing dense time sets. In particular, independence over sites gives
+\[
+ \E_{\free}[(W^c_{B'})^4]\le\exp(8\alpha|B'|).
+\]
+For the path-integral limit, the one-site time-slice factor expands into three positive terms,
+\[
+ a_n=\binom 2n\exp[-n\beta(b_{0,x}+v_x(0)-\mu)],\qquad n=0,1,2.
+\]
+The explicit static Gaussian law above and the independent Gaussian $v_x(0)$ give the fourth moments
+\[
+ \E e^{-4n\beta b_{0,x}}=e^{8n^2\lambda}<\infty,
+ \qquad
+ \E e^{-4n\beta v_x(0)}=e^{8n^2\alpha}<\infty,
+ \qquad n=0,1,2.
+\]
+The convexity estimate $(a_0+a_1+a_2)^4\le27(a_0^4+a_1^4+a_2^4)$ then supplies the required fourth moment of the time-slice factor. Hölder's inequality together with the fourth moment of $W^c_{B'}$ makes the oscillator-path integration and time-slicing limit legitimate.
+
+For the static part, completing the square at a decoupled site gives atomic weights
+\[
+ w_n=\binom 2n\exp(\beta n\mu+\lambda n^2/2),\quad
+ Z_A=\sum_{n=0}^2w_n,
+ \quad p_n=\mathbb P(|G-(\mu+nU)|<g),\quad G\sim N(0,U/\beta).
+\]
+A uniform Gaussian tail estimate, including the $n=0$ and $n=2$ particle-hole cases and the $n=1$ weight, yields
+\[
+ \sum_{n=0}^2\frac{w_n}{Z_A}p_n\le3e^{-c(q)\lambda},
+ \qquad c(q)=\frac{(1-q)^2}{2}\ge\frac9{32}.
+\]
+This estimate is uniform in $\mu$. Exponential tilting of the centered dynamic envelope by a point value $v_x(0)$ costs at most $e^{(9/2)\alpha}$ when the time-slice occupation $n$ ranges over $0,1,2$. Hence each restricted site in $B$ contributes at most $3e^{-c(q)\lambda+9\alpha/2}$, while an unrestricted site in $S\setminus B$ contributes at most $e^{9\alpha/2}$.
+
+For the trace estimate, delete all hopping edges incident to $S$. Weighted degree at most four and the two-spin edge norm give a deleted operator norm at most $8t|S|$. Time-slice Schatten-H\"older followed by weighted AM-GM bounds the restricted numerator by the product of this factor and the free one-site integrals just described. In the denominator, the Gibbs variational inequality applied to the decoupled Hamiltonian gives $Z\ge Z_R Z_A^{|S|}$: local fermion parity at an endpoint of each deleted edge makes the decoupled Gibbs expectation of the deleted hopping zero. The complementary quantum trace $Z_R$ cancels without a volume-dependent factor. The resulting estimate is
+\[
+ |A_{B,B'}(O)|\le K_O\,3^{|B|}
+ \exp\!\left[-c(q)\lambda|B|+8\beta t|S|+\frac92\alpha|S|\right].
+\]
+Now $8\beta t\le\lambda/32$, $|S|\le7|B|$, and $\alpha\le\lambda a^2/12$ imply
+\[
+ \frac92\alpha|S|\le\frac{21}{8}\lambda a^2|B|
+ \le\frac{\lambda|B|}{96}.
+\]
+If $K_O=0$ the bound is immediate. For $K_O>0$, divide the bound above by $K_O$; the logarithm of the remaining right-hand side per defect site is at most
+\[
+ \log3-\frac{9\lambda}{32}+\frac{7\lambda}{32}+\frac{\lambda}{96}
+ =\log3-\frac{5\lambda}{96}
+ \le-\frac{\lambda}{48},
+\]
+where $\log3<2\le\lambda/32$ for $\lambda\ge64$. This proves the assertion and all constants.
+
+\section{Why the positive envelope does not close the estimate}
+
+The centered weight is useful because its Gaussian moment has no constant factor per site. A tempting alternative is the positive uncentered envelope $W_{\{x\}}(\eta)=\exp(\eta\beta\|v_x\|_\infty)$, which is at least one and may appear easier to insert. The exact atom shows that a prefactor-free purely quadratic cost for this norm is impossible.
+
+\begin{proposition}[Atomic positive-envelope obstruction]
+Fix $\lambda>0$, $\eta>0$, and $C>0$. For any $g>0$ and finite $\mu$, the $t=0$ Holstein atom violates
+\[
+ \E_{\full}[W_{\{x\}}(\eta)\mid E_{\{x\}}]\le e^{C\lambda a^2}
+\]
+for all sufficiently small positive $a$.
+\end{proposition}
+
+At zero hopping the occupation is conserved and $v_x$ has zero time average. The electronic trace is independent of the dynamic history, so the history remains free and independent of the static defect event, which has strictly positive probability. With $S=\|v_x\|_\infty$, $S\ge|v_x(0)|$ and $e^z\ge1+z$ give
+\[
+ \E_{\full}[e^{\eta\beta S}\mid E_{\{x\}}]
+ =\E_{\free}e^{\eta\beta S}
+ \ge1+\eta\beta\sqrt{2/\pi}\,\sigma_v.
+\]
+The lowest nonzero Fourier mode gives $\beta^2\sigma_v^2\ge2\lambda a^2/(4\pi^2+a^2)$. For $0<a\le1$, elementary bounds on $\pi$ imply the preceding expectation is strictly greater than $1+\eta\sqrt\lambda a/9$. Choose $a$ positive and small enough that
+\[
+ a\le\min\left\{1,\frac{\eta}{36C\sqrt\lambda},\frac1{\sqrt{2C\lambda}}\right\}.
+\]
+Then $z=C\lambda a^2\le1/2$, and $e^z\le1+2z\le1+\eta\sqrt\lambda a/18$. This contradicts the proposed bound. The result excludes only a prefactor-free quadratic estimate for this positive supremum norm. A fixed prefactor, a cost linear in $\sqrt\lambda a$, and signed or centered connected activities are not excluded.
+
+\section{From insertion bounds to polymer convergence}
+
+A defect insertion is not, by itself, a connected polymer activity. The support restriction in the theorem already matters for the buffer size generated by a natural localization radius. In the construction under consideration,
+\[
+ k_* = \left\lceil\frac{\log(2^{23}\lambda a^2)}{\log(g/(16t))}\right\rceil+1,
+ \qquad N_{\mathrm{buf}}=(2k_*+1)^2.
+\]
+At $\lambda=64$, $a^2=1/252$, $g=U/4$, and $t=g/64$, the denominator base is $g/(16t)=4$ and $2^{23}\lambda a^2=2^{29}/252$. Since $4^{10}<2^{29}/252<4^{11}$, the radius is $k_*=12$, and a radius-12 max-norm buffer on a sufficiently large torus contains $625$ sites. For a singleton defect this has $|B\cup B'|=625$, outside the theorem's ratio-seven support condition. The theorem therefore does not control that defect-plus-buffer insertion.
+
+There is also a separate conditional calculation for a conventional polymerization. Suppose, as an additional hypothesis not proved here, that connected site-set polymers $\gamma$ have activities satisfying $|z(\gamma)|\le z^{|\gamma|}$ and that incompatibility means graph distance at most one. The number of connected sets of size $m$ rooted at a fixed site is at most $16^{m-1}$, by encoding each set as a closed walk along a rooted spanning tree. For a fixed polymer $\gamma$, an incompatible polymer's root has at most $5|\gamma|$ possible sites. Thus the Koteck\'y-Preiss sum with size function $A(\gamma)=|\gamma|$ obeys
+\[
+ \sum_{\gamma'\not\sim\gamma}|z(\gamma')|e^{|\gamma'|}
+ \le5|\gamma|\sum_{m\ge1}16^{m-1}z^m e^m
+ =|\gamma|\frac{5ze}{1-16ze},
+\]
+when $16ze<1$. A sufficient criterion for this to be at most $|\gamma|$ is
+\[
+ 21ze\le1.
+\]
+This is a conditional arithmetic test, not a convergence result for the Holstein model~\cite{kp}. Even the optimistic substitution $z=e^{-\lambda/48}$ misses this test at the allowed endpoint $\lambda=64$, since then $ze=e^{-1/3}>1/3>1/21$. The insertion theorem supplies neither the assumed activity bound nor a connected coefficient expansion.
+
+The gap cannot be repaired by a purely formal inference from small restricted insertions to correlations. Consider independent Bernoulli defect indicators $D_x$ with probability $p=e^{-c}$, and a single uniform random angle $\Theta$ shared by every site. Put $Q_x=e^{2i\Theta}$. For every finite set $B$ and every observable $F$ of $\Theta$ with $|F|\le1$,
+\[
+ \left|\mathbb E\left[1_{\{D_x=1\,\forall x\in B\}}F\right]\right|
+ \le p^{|B|}=e^{-c|B|}.
+\]
+Nevertheless $\mathbb E[Q_xQ_y^*]=1$ for distinct sites at arbitrary separation. The one-point mean vanishes, so this is also a nonzero connected correlation. This probability model is not a Holstein counterexample. It shows that defect-insertion bounds alone do not entail clustering or cancellation of disconnected vacuum terms.
+
+\begin{remark}[A localized cut remains a missing step]
+For the radius-12 singleton buffer above, at $t=g/64$, $g=U/4$, and $|B|=1$, the existing union-set cut costs $8\beta t|S|=625\lambda/32$, which exceeds the target $\lambda/48$ by the ratio $1875/2$, independently of $a$. Separately, for $X\sim N(0,1)$, $W=\exp(|X|-\mathbb E|X|)$ and $F_s=\exp(s|X|)$, no finite function of $\mathbb E W$ alone bounds $\mathbb E[WF_s]/\mathbb E[F_s]$ over all positive tilts. In this proof route, obtaining a defect-only cut would therefore require a new step that isolates the weighted complement of $B$ (with $D=B'\setminus B$) without freezing or cutting $D$, together with a domination estimate for the tilted complement expectation. This diagnoses a missing step in the existing derivation, not a theorem that localization is impossible or that the physical local-cost estimate fails.
+\end{remark}
+
+\section{Temperature interval and the pairing question}
+
+The theorem's two dimensionless restrictions imply
+\[
+ 6\sqrt7\,\Omega\le k_BT\le U/64.
+\]
+This interval is nonempty exactly when $\Omega\le U/(384\sqrt7)$. Within it, the theorem gives an exponentially small restricted defect insertion with a centered local envelope. It is not exponential decay of fixed-support even-charge correlations in the full annealed Gibbs state. In the cited pairing framework, a bound on $T_{\mathrm{pair}}$ requires volume-uniform exponential decay in that full state above a temperature threshold. The present insertion estimate supplies no such correlation bound and gives no new $T_{\mathrm{pair}}$ consequence. Whether the route can be supplemented to yield a linear-in-$\Omega$ pair-temperature ceiling remains a conjectural question.
+
+\section{Conclusion}
+
+The centered local insertion estimate is a uniform theorem with explicit constants and bounded-operator insertions. Its hypotheses, including the ratio bound on the union of supports, are essential to the statement proved here. The atomic calculation rules out one positive-envelope shortcut, while the buffer arithmetic and shared-angle example explain why suppression of restricted numerators alone is not a connected expansion. Neither a Holstein clustering theorem nor a physical obstruction to pairing follows. A proof of a linear-in-frequency ceiling needs additional control of connected coefficients, the interacting complement, and the full annealed correlations.
+
+\paragraph{Disclosure.} AI agents generated the proofs, code, and manuscript drafts under D. Rens' direction. Separate AI agents performed independent reviews. This preprint has not been peer reviewed.
+
+\bibliographystyle{plain}
+\bibliography{refs}
+\end{document}
